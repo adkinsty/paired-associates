@@ -28,7 +28,7 @@
     <Param name="blendMode" updates="None" val="avg" valType="str"/>
     <Param name="color" updates="None" val="$[0,0,0]" valType="color"/>
     <Param name="colorSpace" updates="None" val="rgb" valType="str"/>
-    <Param name="expName" updates="None" val="Paired Associates" valType="str"/>
+    <Param name="expName" updates="None" val="paired-associates" valType="str"/>
     <Param name="exportHTML" updates="None" val="on Sync" valType="str"/>
     <Param name="logging level" updates="None" val="debug" valType="code"/>
   </Settings>
@@ -104,6 +104,23 @@
         <Param name="storeCorrect" updates="constant" val="False" valType="bool"/>
         <Param name="syncScreenRefresh" updates="constant" val="True" valType="bool"/>
       </KeyboardComponent>
+      <CodeComponent name="code">
+        <Param name="Before Experiment" updates="constant" val="" valType="extendedCode"/>
+        <Param name="Before JS Experiment" updates="constant" val="" valType="extendedCode"/>
+        <Param name="Begin Experiment" updates="constant" val="" valType="extendedCode"/>
+        <Param name="Begin JS Experiment" updates="constant" val="// default values&amp;#10;var word1 = &quot;&quot;;&amp;#10;var word2 = &quot;&quot;;" valType="extendedCode"/>
+        <Param name="Begin JS Routine" updates="constant" val="" valType="extendedCode"/>
+        <Param name="Begin Routine" updates="constant" val="" valType="extendedCode"/>
+        <Param name="Code Type" updates="None" val="JS" valType="str"/>
+        <Param name="Each Frame" updates="constant" val="" valType="extendedCode"/>
+        <Param name="Each JS Frame" updates="constant" val="" valType="extendedCode"/>
+        <Param name="End Experiment" updates="constant" val="" valType="extendedCode"/>
+        <Param name="End JS Experiment" updates="constant" val="" valType="extendedCode"/>
+        <Param name="End JS Routine" updates="constant" val="" valType="extendedCode"/>
+        <Param name="End Routine" updates="constant" val="" valType="extendedCode"/>
+        <Param name="disabled" updates="None" val="False" valType="bool"/>
+        <Param name="name" updates="None" val="code" valType="code"/>
+      </CodeComponent>
     </Routine>
     <Routine name="Instr2">
       <TextComponent name="example">
@@ -297,8 +314,10 @@
         <Param name="disabled" updates="None" val="False" valType="bool"/>
         <Param name="durationEstim" updates="None" val="" valType="num"/>
         <Param name="fillColor" updates="constant" val="white" valType="color"/>
+        <Param name="fillColorSpace" updates="constant" val="rgb" valType="str"/>
         <Param name="interpolate" updates="constant" val="linear" valType="str"/>
         <Param name="lineColor" updates="constant" val="white" valType="color"/>
+        <Param name="lineColorSpace" updates="constant" val="rgb" valType="str"/>
         <Param name="lineWidth" updates="constant" val="1" valType="num"/>
         <Param name="nVertices" updates="constant" val="4" valType="int"/>
         <Param name="name" updates="None" val="polygon" valType="code"/>
@@ -455,8 +474,10 @@
         <Param name="disabled" updates="None" val="False" valType="bool"/>
         <Param name="durationEstim" updates="None" val="" valType="num"/>
         <Param name="fillColor" updates="constant" val="white" valType="color"/>
+        <Param name="fillColorSpace" updates="constant" val="rgb" valType="str"/>
         <Param name="interpolate" updates="constant" val="linear" valType="str"/>
         <Param name="lineColor" updates="constant" val="white" valType="color"/>
+        <Param name="lineColorSpace" updates="constant" val="rgb" valType="str"/>
         <Param name="lineWidth" updates="constant" val="1" valType="num"/>
         <Param name="nVertices" updates="constant" val="4" valType="int"/>
         <Param name="name" updates="None" val="fix_practice" valType="code"/>
@@ -534,7 +555,7 @@
         <Param name="stopType" updates="None" val="duration (s)" valType="str"/>
         <Param name="stopVal" updates="constant" val="5" valType="num"/>
         <Param name="syncScreenRefresh" updates="None" val="True" valType="bool"/>
-        <Param name="text" updates="set every repeat" val="" valType="str"/>
+        <Param name="text" updates="set every repeat" val=" " valType="str"/>
         <Param name="units" updates="None" val="from exp settings" valType="str"/>
       </TextboxComponent>
       <KeyboardComponent name="submit_practice">
@@ -609,10 +630,10 @@
     <LoopInitiator loopType="TrialHandler" name="practice_trials">
       <Param name="Selected rows" updates="None" val="" valType="str"/>
       <Param name="conditions" updates="None" val="[{'word1': 'mouse', 'word2': 'tree'}, {'word1': 'fork', 'word2': 'task'}, {'word1': 'trash', 'word2': 'desk'}]" valType="str"/>
-      <Param name="conditionsFile" updates="None" val="practice.xlsx" valType="file"/>
+      <Param name="conditionsFile" updates="None" val="practice_words.xlsx" valType="file"/>
       <Param name="endPoints" updates="None" val="[0, 1]" valType="num"/>
-      <Param name="isTrials" updates="None" val="True" valType="bool"/>
-      <Param name="loopType" updates="None" val="random" valType="str"/>
+      <Param name="isTrials" updates="None" val="False" valType="bool"/>
+      <Param name="loopType" updates="None" val="sequential" valType="str"/>
       <Param name="nReps" updates="None" val="1" valType="num"/>
       <Param name="name" updates="None" val="practice_trials" valType="code"/>
       <Param name="random seed" updates="None" val="" valType="code"/>
@@ -622,10 +643,10 @@
     <LoopInitiator loopType="TrialHandler" name="practice_resp">
       <Param name="Selected rows" updates="None" val="" valType="str"/>
       <Param name="conditions" updates="None" val="[{'word1': 'mouse', 'word2': 'tree'}, {'word1': 'fork', 'word2': 'task'}, {'word1': 'trash', 'word2': 'desk'}]" valType="str"/>
-      <Param name="conditionsFile" updates="None" val="practice.xlsx" valType="file"/>
+      <Param name="conditionsFile" updates="None" val="practice_words.xlsx" valType="file"/>
       <Param name="endPoints" updates="None" val="[0, 1]" valType="num"/>
-      <Param name="isTrials" updates="None" val="True" valType="bool"/>
-      <Param name="loopType" updates="None" val="random" valType="str"/>
+      <Param name="isTrials" updates="None" val="False" valType="bool"/>
+      <Param name="loopType" updates="None" val="sequential" valType="str"/>
       <Param name="nReps" updates="None" val="1" valType="num"/>
       <Param name="name" updates="None" val="practice_resp" valType="code"/>
       <Param name="random seed" updates="None" val="" valType="code"/>
@@ -636,7 +657,7 @@
     <LoopInitiator loopType="TrialHandler" name="blocks">
       <Param name="Selected rows" updates="None" val="" valType="str"/>
       <Param name="conditions" updates="None" val="[{'file_name': 'block1.xlsx'}, {'file_name': 'block2.xlsx'}, {'file_name': 'block3.xlsx'}]" valType="str"/>
-      <Param name="conditionsFile" updates="None" val="blocks.xlsx" valType="file"/>
+      <Param name="conditionsFile" updates="None" val="block_files.xlsx" valType="file"/>
       <Param name="endPoints" updates="None" val="[0, 1]" valType="num"/>
       <Param name="isTrials" updates="None" val="True" valType="bool"/>
       <Param name="loopType" updates="None" val="random" valType="str"/>
@@ -663,7 +684,7 @@
       <Param name="conditions" updates="None" val="None" valType="str"/>
       <Param name="conditionsFile" updates="None" val="$file_name" valType="file"/>
       <Param name="endPoints" updates="None" val="[0, 1]" valType="num"/>
-      <Param name="isTrials" updates="None" val="True" valType="bool"/>
+      <Param name="isTrials" updates="None" val="False" valType="bool"/>
       <Param name="loopType" updates="None" val="random" valType="str"/>
       <Param name="nReps" updates="None" val="1" valType="num"/>
       <Param name="name" updates="None" val="probe_loop" valType="code"/>
