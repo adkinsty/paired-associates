@@ -98,7 +98,7 @@ var Instr1Clock;
 var InstrText;
 var instr1_key;
 var Instr2Clock;
-var example;
+var instr2_text;
 var instr2_key;
 var trial_startClock;
 var text;
@@ -112,7 +112,7 @@ var top_text;
 var key_resp_2;
 var allResponses;
 var current_resp;
-var bot_text;
+var pts_response;
 var globalClock;
 var routineTimer;
 function experimentInit() {
@@ -136,10 +136,10 @@ function experimentInit() {
   var word2 = "";
   // Initialize components for Routine "Instr2"
   Instr2Clock = new util.Clock();
-  example = new visual.TextStim({
+  instr2_text = new visual.TextStim({
     win: psychoJS.window,
-    name: 'example',
-    text: 'After viewing 10 word pairs you must recall the BOTTOM word for each pair. \n\nThe pairs will not be presented in the same order in which you saw them originally.\n\nWhen it is time to recall the words, you will see the top word with “???” underneath. You will then type in the corresponding bottom word when the cursor appears. \n\nYou will have 5 seconds to type in the correct response. Press the ‘ENTER’ key once you have typed in your response.\n\n\n[Press “SPACE” to continue]',
+    name: 'instr2_text',
+    text: 'After viewing 10 word pairs you must recall the BOTTOM word for each pair. \n\nThe pairs will not be presented in the same order in which you saw them originally.\n\nWhen it is time to recall the words, you will see the top word but no bottom word. You will have 5 seconds to type the bottom word and press the ‘RETURN/ENTER’ to submit your response.\n\n[Press “SPACE” when you are ready to begin]',
     font: 'Open Sans',
     units: undefined, 
     pos: [0, 0], height: 0.05,  wrapWidth: undefined, ori: 0.0,
@@ -215,9 +215,9 @@ function experimentInit() {
   // Store responses
   allResponses = []
   current_resp = '';
-  bot_text = new visual.TextStim({
+  pts_response = new visual.TextStim({
     win: psychoJS.window,
-    name: 'bot_text',
+    name: 'pts_response',
     text: '',
     font: 'Open Sans',
     units: undefined, 
@@ -369,7 +369,7 @@ function Instr2RoutineBegin(snapshot) {
     _instr2_key_allKeys = [];
     // keep track of which components have finished
     Instr2Components = [];
-    Instr2Components.push(example);
+    Instr2Components.push(instr2_text);
     Instr2Components.push(instr2_key);
     
     for (const thisComponent of Instr2Components)
@@ -388,13 +388,13 @@ function Instr2RoutineEachFrame(snapshot) {
     frameN = frameN + 1;// number of completed frames (so 0 is the first frame)
     // update/draw components on each frame
     
-    // *example* updates
-    if (t >= 0.0 && example.status === PsychoJS.Status.NOT_STARTED) {
+    // *instr2_text* updates
+    if (t >= 0.0 && instr2_text.status === PsychoJS.Status.NOT_STARTED) {
       // keep track of start time/frame for later
-      example.tStart = t;  // (not accounting for frame time here)
-      example.frameNStart = frameN;  // exact frame index
+      instr2_text.tStart = t;  // (not accounting for frame time here)
+      instr2_text.frameNStart = frameN;  // exact frame index
       
-      example.setAutoDraw(true);
+      instr2_text.setAutoDraw(true);
     }
 
     
@@ -833,7 +833,7 @@ function probeRoutineBegin(snapshot) {
     probeComponents = [];
     probeComponents.push(top_text);
     probeComponents.push(key_resp_2);
-    probeComponents.push(bot_text);
+    probeComponents.push(pts_response);
     
     for (const thisComponent of probeComponents)
       if ('status' in thisComponent)
@@ -902,18 +902,18 @@ function probeRoutineEachFrame(snapshot) {
         current_resp = ''
     }
     
-    // *bot_text* updates
-    if (t >= 0 && bot_text.status === PsychoJS.Status.NOT_STARTED) {
+    // *pts_response* updates
+    if (t >= 0 && pts_response.status === PsychoJS.Status.NOT_STARTED) {
       // keep track of start time/frame for later
-      bot_text.tStart = t;  // (not accounting for frame time here)
-      bot_text.frameNStart = frameN;  // exact frame index
+      pts_response.tStart = t;  // (not accounting for frame time here)
+      pts_response.frameNStart = frameN;  // exact frame index
       
-      bot_text.setAutoDraw(true);
+      pts_response.setAutoDraw(true);
     }
 
     
-    if (bot_text.status === PsychoJS.Status.STARTED){ // only update if being drawn
-      bot_text.setText(current_resp, false);
+    if (pts_response.status === PsychoJS.Status.STARTED){ // only update if being drawn
+      pts_response.setText(current_resp, false);
     }
     // check for quit (typically the Esc key)
     if (psychoJS.experiment.experimentEnded || psychoJS.eventManager.getKeys({keyList:['escape']}).length > 0) {

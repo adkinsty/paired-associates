@@ -123,7 +123,7 @@
       </CodeComponent>
     </Routine>
     <Routine name="Instr2">
-      <TextComponent name="example">
+      <TextComponent name="instr2_text">
         <Param name="color" updates="constant" val="white" valType="color"/>
         <Param name="colorSpace" updates="constant" val="rgb" valType="str"/>
         <Param name="contrast" updates="constant" val="1" valType="num"/>
@@ -133,7 +133,7 @@
         <Param name="font" updates="constant" val="Open Sans" valType="str"/>
         <Param name="languageStyle" updates="None" val="LTR" valType="str"/>
         <Param name="letterHeight" updates="constant" val="0.05" valType="num"/>
-        <Param name="name" updates="None" val="example" valType="code"/>
+        <Param name="name" updates="None" val="instr2_text" valType="code"/>
         <Param name="opacity" updates="constant" val="" valType="num"/>
         <Param name="ori" updates="constant" val="0" valType="num"/>
         <Param name="pos" updates="constant" val="(0, 0)" valType="list"/>
@@ -144,7 +144,7 @@
         <Param name="stopType" updates="None" val="duration (s)" valType="str"/>
         <Param name="stopVal" updates="constant" val="" valType="num"/>
         <Param name="syncScreenRefresh" updates="None" val="True" valType="bool"/>
-        <Param name="text" updates="constant" val="After viewing 10 word pairs you must recall the BOTTOM word for each pair. &amp;#10;&amp;#10;The pairs will not be presented in the same order in which you saw them originally.&amp;#10;&amp;#10;When it is time to recall the words, you will see the top word with “???” underneath. You will then type in the corresponding bottom word when the cursor appears. &amp;#10;&amp;#10;You will have 5 seconds to type in the correct response. Press the ‘ENTER’ key once you have typed in your response.&amp;#10;&amp;#10;&amp;#10;[Press “SPACE” to continue]" valType="str"/>
+        <Param name="text" updates="constant" val="After viewing 10 word pairs you must recall the BOTTOM word for each pair. &amp;#10;&amp;#10;The pairs will not be presented in the same order in which you saw them originally.&amp;#10;&amp;#10;When it is time to recall the words, you will see the top word but no bottom word. You will have 5 seconds to type the bottom word and press the ‘RETURN/ENTER’ to submit your response.&amp;#10;&amp;#10;[Press “SPACE” when you are ready to begin]" valType="str"/>
         <Param name="units" updates="None" val="from exp settings" valType="str"/>
         <Param name="wrapWidth" updates="constant" val="" valType="num"/>
       </TextComponent>
@@ -450,7 +450,7 @@
         <Param name="disabled" updates="None" val="False" valType="bool"/>
         <Param name="name" updates="None" val="check_keys" valType="code"/>
       </CodeComponent>
-      <TextComponent name="bot_text">
+      <TextComponent name="pts_response">
         <Param name="color" updates="constant" val="white" valType="str"/>
         <Param name="colorSpace" updates="constant" val="rgb" valType="str"/>
         <Param name="contrast" updates="constant" val="1" valType="num"/>
@@ -460,7 +460,7 @@
         <Param name="font" updates="constant" val="Open Sans" valType="str"/>
         <Param name="languageStyle" updates="None" val="LTR" valType="str"/>
         <Param name="letterHeight" updates="constant" val="0.05" valType="code"/>
-        <Param name="name" updates="None" val="bot_text" valType="code"/>
+        <Param name="name" updates="None" val="pts_response" valType="code"/>
         <Param name="opacity" updates="constant" val="1" valType="code"/>
         <Param name="ori" updates="constant" val="0" valType="code"/>
         <Param name="pos" updates="constant" val="(0, -.05)" valType="code"/>
