@@ -112,6 +112,7 @@ var top_text;
 var key_resp_2;
 var allResponses;
 var current_resp;
+var bot_text;
 var globalClock;
 var routineTimer;
 function experimentInit() {
@@ -214,6 +215,17 @@ function experimentInit() {
   // Store responses
   allResponses = []
   current_resp = '';
+  bot_text = new visual.TextStim({
+    win: psychoJS.window,
+    name: 'bot_text',
+    text: '',
+    font: 'Open Sans',
+    units: undefined, 
+    pos: [0, (- 0.05)], height: 0.05,  wrapWidth: undefined, ori: 0,
+    color: new util.Color('white'),  opacity: 1,
+    depth: -3.0 
+  });
+  
   // Create some handy timers
   globalClock = new util.Clock();  // to track the time since experiment started
   routineTimer = new util.CountdownTimer();  // to track time remaining of each (non-slip) routine
@@ -821,6 +833,7 @@ function probeRoutineBegin(snapshot) {
     probeComponents = [];
     probeComponents.push(top_text);
     probeComponents.push(key_resp_2);
+    probeComponents.push(bot_text);
     
     for (const thisComponent of probeComponents)
       if ('status' in thisComponent)
@@ -864,8 +877,8 @@ function probeRoutineEachFrame(snapshot) {
       let theseKeys = key_resp_2.getKeys({keyList: ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z', 'return', 'backspace'], waitRelease: false});
       _key_resp_2_allKeys = _key_resp_2_allKeys.concat(theseKeys);
       if (_key_resp_2_allKeys.length > 0) {
-        key_resp_2.keys = _key_resp_2_allKeys[_key_resp_2_allKeys.length - 1].name;  // just the last key pressed
-        key_resp_2.rt = _key_resp_2_allKeys[_key_resp_2_allKeys.length - 1].rt;
+        key_resp_2.keys = _key_resp_2_allKeys.map((key) => key.name);  // storing all keys
+        key_resp_2.rt = _key_resp_2_allKeys.map((key) => key.rt);
       }
     }
     
@@ -887,6 +900,20 @@ function probeRoutineEachFrame(snapshot) {
         current_resp = key_resp_2.keys.join('');
     } catch (err) {
         current_resp = ''
+    }
+    
+    // *bot_text* updates
+    if (t >= 0 && bot_text.status === PsychoJS.Status.NOT_STARTED) {
+      // keep track of start time/frame for later
+      bot_text.tStart = t;  // (not accounting for frame time here)
+      bot_text.frameNStart = frameN;  // exact frame index
+      
+      bot_text.setAutoDraw(true);
+    }
+
+    
+    if (bot_text.status === PsychoJS.Status.STARTED){ // only update if being drawn
+      bot_text.setText(current_resp, false);
     }
     // check for quit (typically the Esc key)
     if (psychoJS.experiment.experimentEnded || psychoJS.eventManager.getKeys({keyList:['escape']}).length > 0) {
