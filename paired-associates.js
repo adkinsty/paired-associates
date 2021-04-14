@@ -63,10 +63,10 @@ psychoJS.start({
   expName: expName,
   expInfo: expInfo,
   resources: [
-    {'name': 'block_files.xlsx', 'path': 'block_files.xlsx'},
-    {'name': 'block3.xlsx', 'path': 'block3.xlsx'},
     {'name': 'block1.xlsx', 'path': 'block1.xlsx'},
-    {'name': 'block2.xlsx', 'path': 'block2.xlsx'}
+    {'name': 'block3.xlsx', 'path': 'block3.xlsx'},
+    {'name': 'block2.xlsx', 'path': 'block2.xlsx'},
+    {'name': 'block_files.xlsx', 'path': 'block_files.xlsx'}
   ]
 });
 
@@ -893,14 +893,16 @@ function probeRoutineEachFrame(snapshot) {
         } else if (key_resp_2.keys[key_resp_2.keys.length - 1] === 'return') {
             key_resp_2.keys.pop(key_resp_2.keys.length-1);
             continueRoutine = false;
+        } else {
+            try {
+                current_resp = key_resp_2.keys.join('');
+            } catch (err) {
+                current_resp = ''
+            }
         }
     }
     
-    try {
-        current_resp = key_resp_2.keys.join('');
-    } catch (err) {
-        current_resp = ''
-    }
+    
     
     // *pts_response* updates
     if (t >= 0 && pts_response.status === PsychoJS.Status.NOT_STARTED) {
