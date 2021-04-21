@@ -863,6 +863,8 @@ function probeRoutineEachFrame(snapshot) {
     } else {
         if (keys) {
             if ((keys[0] === "return")) {
+                textFill = '';
+                screen_text.setText(textFill);
                 continueRoutine = false;
             } else {
                 if ((keys[0] === "space")) {
@@ -941,7 +943,10 @@ function probeRoutineEnd(snapshot) {
     psychoJS.experiment.addData("response", textFill);
     
     allResponses.push(correct)
-    screen_text.text = '';
+    textFill = '';
+    screen_text.setText(textFill);
+    
+    
     // the Routine "probe" was not non-slip safe, so reset the non-slip timer
     routineTimer.reset();
     
