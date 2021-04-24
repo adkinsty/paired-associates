@@ -66,10 +66,10 @@ psychoJS.start({
   expName: expName,
   expInfo: expInfo,
   resources: [
+    {'name': 'block_files.xlsx', 'path': 'block_files.xlsx'},
     {'name': 'block3.xlsx', 'path': 'block3.xlsx'},
     {'name': 'block1.xlsx', 'path': 'block1.xlsx'},
-    {'name': 'block2.xlsx', 'path': 'block2.xlsx'},
-    {'name': 'block_files.xlsx', 'path': 'block_files.xlsx'}
+    {'name': 'block2.xlsx', 'path': 'block2.xlsx'}
   ]
 });
 
@@ -113,7 +113,7 @@ var fixation;
 var probeClock;
 var top_text;
 var allResponses;
-var displayText;
+var inputDisplay;
 var rngClock;
 var rng_instr;
 var rng_text;
@@ -218,9 +218,9 @@ function experimentInit() {
   
   // Store accuracies
   allResponses = []
-  displayText = new visual.TextStim({
+  inputDisplay = new visual.TextStim({
     win: psychoJS.window,
-    name: 'displayText',
+    name: 'inputDisplay',
     text: '',
     font: 'Open Sans',
     units: undefined, 
@@ -861,7 +861,7 @@ function probeRoutineBegin(snapshot) {
     // keep track of which components have finished
     probeComponents = [];
     probeComponents.push(top_text);
-    probeComponents.push(displayText);
+    probeComponents.push(inputDisplay);
     
     for (const thisComponent of probeComponents)
       if ('status' in thisComponent)
@@ -918,18 +918,18 @@ function probeRoutineEachFrame(snapshot) {
         inputDisplay.setText(">"+inputText);
     }
     
-    // *displayText* updates
-    if (t >= 0 && displayText.status === PsychoJS.Status.NOT_STARTED) {
+    // *inputDisplay* updates
+    if (t >= 0 && inputDisplay.status === PsychoJS.Status.NOT_STARTED) {
       // keep track of start time/frame for later
-      displayText.tStart = t;  // (not accounting for frame time here)
-      displayText.frameNStart = frameN;  // exact frame index
+      inputDisplay.tStart = t;  // (not accounting for frame time here)
+      inputDisplay.frameNStart = frameN;  // exact frame index
       
-      displayText.setAutoDraw(true);
+      inputDisplay.setAutoDraw(true);
     }
 
     
-    if (displayText.status === PsychoJS.Status.STARTED){ // only update if being drawn
-      displayText.setText('', false);
+    if (inputDisplay.status === PsychoJS.Status.STARTED){ // only update if being drawn
+      inputDisplay.setText('', false);
     }
     // check for quit (typically the Esc key)
     if (psychoJS.experiment.experimentEnded || psychoJS.eventManager.getKeys({keyList:['escape']}).length > 0) {
