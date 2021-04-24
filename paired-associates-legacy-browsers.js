@@ -52,10 +52,10 @@ psychoJS.start({
   expName: expName,
   expInfo: expInfo,
   resources: [
-    {'name': 'block_files.xlsx', 'path': 'block_files.xlsx'},
-    {'name': 'block1.xlsx', 'path': 'block1.xlsx'},
     {'name': 'block3.xlsx', 'path': 'block3.xlsx'},
-    {'name': 'block2.xlsx', 'path': 'block2.xlsx'}
+    {'name': 'block1.xlsx', 'path': 'block1.xlsx'},
+    {'name': 'block2.xlsx', 'path': 'block2.xlsx'},
+    {'name': 'block_files.xlsx', 'path': 'block_files.xlsx'}
   ]
 });
 
@@ -99,8 +99,7 @@ var fixation;
 var probeClock;
 var top_text;
 var allResponses;
-var allLetters;
-var screen_text;
+var displayText;
 var globalClock;
 var routineTimer;
 function experimentInit() {
@@ -198,13 +197,11 @@ function experimentInit() {
     depth: 0.0 
   });
   
-  // Store responses
+  // Store accuracies
   allResponses = []
-  allLetters = "abcdefghijklmnopqrstuvwxyz".split('');
-  
-  screen_text = new visual.TextStim({
+  displayText = new visual.TextStim({
     win: psychoJS.window,
-    name: 'screen_text',
+    name: 'displayText',
     text: '',
     font: 'Open Sans',
     units: undefined, 
@@ -809,7 +806,7 @@ function primeRoutineEnd(snapshot) {
 }
 
 
-var textFill;
+var inputText;
 var probeComponents;
 function probeRoutineBegin(snapshot) {
   return function () {
@@ -820,12 +817,12 @@ function probeRoutineBegin(snapshot) {
     continueRoutine = true; // until we're told otherwise
     // update component parameters for each repeat
     top_text.setText(word1);
-    textFill = "";
+    inputText = "";
     
     // keep track of which components have finished
     probeComponents = [];
     probeComponents.push(top_text);
-    probeComponents.push(screen_text);
+    probeComponents.push(displayText);
     
     probeComponents.forEach( function(thisComponent) {
       if ('status' in thisComponent)
@@ -837,6 +834,8 @@ function probeRoutineBegin(snapshot) {
 
 
 var keys;
+var n;
+var i;
 function probeRoutineEachFrame(snapshot) {
   return function () {
     //------Loop for each frame of Routine 'probe'-------
@@ -854,42 +853,46 @@ function probeRoutineEachFrame(snapshot) {
       top_text.setAutoDraw(true);
     }
 
-    keys = psychoJS.eventManager.getKeys();
-    if (keys.indexOf('escape') > -1) {
-        psychoJS.experiment.experimentEnded = true;
-    } else {
-        if (keys) {
-            if ((keys[0] === "return")) {
-                textFill = '';
-                screen_text.setText(textFill);
-                continueRoutine = false;
-            } else {
-                if ((keys[0] === "space")) {
-                    textFill += " ";
-                } else {
-                    if ((keys[0] === "backspace")) {
-                        textFill = textFill.slice(0, (- 1));
-                    } else {
-                        if (allLetters.indexOf(keys[0]) > -1) {
-                            textFill += keys[0];
-                        }
-                    }
-                }
-                screen_text.setText(textFill);
-            }
+    keys = psychoJS.eventManager.getKeys()
+    n = keys.length
+    i = 0
+    
+    while (i < n) {
+        
+        if (keys[i].length == 1){
+            inputText += keys[i]
+            i += 1
+        } else if (keys[i] == 'backspace') {
+            inputText = inputText.slice(0,-1)
+            i += 1
+        } else if (keys[i] == 'space') {
+            inputText += " ";
+            i += 1
+        } else if (keys[i] == 'return') {
+            continueRoutine = false
+            i += 1
+        } else if (keys[i] == 'escape') {
+            psychoJS.quit()
+            break
+        } else {
+            i += 1
         }
+        inputDisplay.setText(">"+inputText);
     }
     
-    
-    // *screen_text* updates
-    if (t >= 0 && screen_text.status === PsychoJS.Status.NOT_STARTED) {
+    // *displayText* updates
+    if (t >= 0 && displayText.status === PsychoJS.Status.NOT_STARTED) {
       // keep track of start time/frame for later
-      screen_text.tStart = t;  // (not accounting for frame time here)
-      screen_text.frameNStart = frameN;  // exact frame index
+      displayText.tStart = t;  // (not accounting for frame time here)
+      displayText.frameNStart = frameN;  // exact frame index
       
-      screen_text.setAutoDraw(true);
+      displayText.setAutoDraw(true);
     }
 
+    
+    if (displayText.status === PsychoJS.Status.STARTED){ // only update if being drawn
+      displayText.setText('', false);
+    }
     // check for quit (typically the Esc key)
     if (psychoJS.experiment.experimentEnded || psychoJS.eventManager.getKeys({keyList:['escape']}).length > 0) {
       return quitPsychoJS('The [Escape] key was pressed. Goodbye!', false);
@@ -917,7 +920,7 @@ function probeRoutineEachFrame(snapshot) {
 }
 
 
-var correct;
+var acc;
 var msg;
 function probeRoutineEnd(snapshot) {
   return function () {
@@ -927,21 +930,20 @@ function probeRoutineEnd(snapshot) {
         thisComponent.setAutoDraw(false);
       }
     });
-    correct = 0;
+    acc = 0;
     
-    if (textFill === word2) {
-        correct = 1;
+    if (inputText === word2) {
+        acc = 1;
         msg = "Correct";
-        psychoJS.experiment.addData("correct", correct)
+        psychoJS.experiment.addData("correct", acc)
     } else {
         msg = "Incorrect";
-        psychoJS.experiment.addData("Incorrect", correct)
+        psychoJS.experiment.addData("Incorrect", acc)
     }
-    psychoJS.experiment.addData("response", textFill);
+    psychoJS.experiment.addData("response", inputText);
     
-    allResponses.push(correct)
-    textFill = '';
-    screen_text.setText(textFill);
+    allResponses.push(acc)
+    inputDisplay.setText('');
     
     
     // the Routine "probe" was not non-slip safe, so reset the non-slip timer
