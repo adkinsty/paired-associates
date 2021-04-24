@@ -912,7 +912,7 @@ function probeRoutineEachFrame(snapshot) {
         } else {
             i += 1
         }
-        inputDisplay.setText(">"+inputText);
+        inputDisplay.setText(inputText);
     }
     
     // *inputDisplay* updates
