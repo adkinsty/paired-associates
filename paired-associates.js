@@ -927,10 +927,6 @@ function probeRoutineEachFrame(snapshot) {
       inputDisplay.setAutoDraw(true);
     }
 
-    
-    if (inputDisplay.status === PsychoJS.Status.STARTED){ // only update if being drawn
-      inputDisplay.setText('', false);
-    }
     // check for quit (typically the Esc key)
     if (psychoJS.experiment.experimentEnded || psychoJS.eventManager.getKeys({keyList:['escape']}).length > 0) {
       return quitPsychoJS('The [Escape] key was pressed. Goodbye!', false);
